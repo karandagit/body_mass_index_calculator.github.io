@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Body Mass Index Calculator</title>
+	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+
+<body class="bg-light">
+	<div class="container">
+		<div class="row mt-3 row justify-content-between">
+			<div class="col-4">
+				<span class="badge badge-secondary ">Weight  <sup>kg</sup></span>
+				<div class="input-group">
+					<input id="weight" type="number" class="form-control" name="bmi-wight-input" placeholder="Enter your weight in kg">
+				</div>
+				<span class="badge badge-info mt-2 ">Height  <sup>cm</sup></span>
+				<div class="input-group">
+					<input id="height" type="number" class="form-control" name="bmi-input" placeholder="Enter your height in cm">
+				</div>
+				<input id="calculateBtn" type="button" value="Calculate" class="btn btn-info btn-block mt-4">
+				<h3 class="h3 mt-3 text-secondary">Your BMI : <strong id="showBmiNumber" class="text-success"></strong> </h3>
+			</div>
+			<div class="col-8 mt-2">
+				<div class="card text-secondary bg-white">
+					<div class="card-header text-center">BMI categories</div>
+					<div class="card-body">
+						<table class="table">
+							<thead class="thead-light text-center">
+								<tr>
+									<th scope="col">BMI</th>
+									<th scope="col">Weight status</th>
+								</tr>
+							</thead>
+							<tbody class="text-center">
+								<tr id="Underweight">
+									<td>Below 18.5</td>
+									<td>Underweight</td>
+								</tr>
+								<tr id="Healthy">
+									<td>18.5–24.9</td>
+									<td>Healthy</td>
+								</tr>
+								<tr id="Overweight">
+									<td>25.0–29.9</td>
+									<td>Overweight</td>
+								</tr>
+								<tr id="Obese">
+									<td>30.0 and above</td>
+									<td>Obese</td>
+								</tr>
+							</tbody>
+						</table>
+					
+				
+			</div>
+		</div>
+	</div>
+
+	<script>
+		$(function() {
+			$("#calculateBtn").click(function() {
+				console.log(calculateBmi());
+				$("#showBmiNumber").html(calculateBmi() + " kg/m" + "<sup>2</sup>");
+				if (calculateBmi() < 18.5) {
+					let $Underweight = $("#Underweight").addClass(
+						"bg-info text-white animated flash"
+					);
+					setTimeout(function() {
+						$Underweight.removeClass("bg-info text-white animated flash");
+					}, 5000);
+				}
+				if (calculateBmi() >= 18.5 && calculateBmi() < 24.9) {
+					let $Healthy = $("#Healthy").addClass(
+						"bg-success text-white animated shake"
+					);
+					setTimeout(function() {
+						$Healthy.removeClass("bg-success text-white animated shake");
+					}, 5000);
+				}
+				if (calculateBmi() >= 25.0 && calculateBmi() < 29.9) {
+					let $Overweight = $("#Overweight").addClass(
+						"bg-warning text-white animated tada"
+					);
+					setTimeout(function() {
+						$Overweight.removeClass("bg-warning text-white animated tada ");
+					}, 5000);
+				}
+				if (calculateBmi() >= 30.0) {
+					let $Obese = $("#Obese").addClass("bg-danger text-white animated heartBeat");
+					setTimeout(function() {
+						$Obese.removeClass("bg-danger text-white animated heartBeat ");
+					}, 5000);
+				}
+			});
+
+			function calculateBmi() {
+				let bmi, height, weight, m2;
+				height = $("#height").val();
+				weight = $("#weight").val();
+				m2 = height / 100;
+				bmi = weight / (m2 * m2);
+				return bmi.toPrecision(3);
+			}
+		});
+	</script>
+</body>
+
+</html>
